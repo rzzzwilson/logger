@@ -86,4 +86,7 @@ we get:
 ```
 
 Note that we no longer see logging at levels below WARN.  This includes the
-three header lines that are logged at the DEBUG level.
+three header lines that are logged at the DEBUG level.  The log() call at line
+9 of the **test_log.py** file does log as a basic log() call logs at the logging
+default level, so always logs.  We **don't** see logging at the DEBUG and INFO
+levels.
