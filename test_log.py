@@ -6,9 +6,8 @@ Test the simple logger.
 
 import log
 
-print('log module: %s' % str(dir(log)))
-log = log.Log('xyzzy.log', log.Log.DEBUG)
-print('log object: %s' % str(dir(log)))
+log = log.Log('xyzzy.log', log.Log.WARN)
+
 log('test')
 log.debug('DEBUG: test')
 log.info('INFO: test')
