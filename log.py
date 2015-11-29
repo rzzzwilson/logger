@@ -54,9 +54,9 @@ class Log(object):
                  max_fname=DefaultMaxFname):
         """Initialise the logging object.
 
-        logfile the path to the log file
-        level   logging level - don't log below this level
-        append  True if log file is appended to
+        logfile  the path to the log file
+        level    logging level - don't log below this level
+        append   True if log file is appended to
         """
 
         # make sure we have same state as all other log objects
