@@ -44,7 +44,8 @@ class Log(object):
                           INFO: 'INFO',
                           WARN: 'WARN',
                           ERROR: 'ERROR',
-                          CRITICAL: 'CRITICAL'}
+                          CRITICAL: 'CRITICAL',
+                         }
 
     # default maximum length of filename (enforced)
     DefaultMaxFname = 15
@@ -62,41 +63,43 @@ class Log(object):
         # make sure we have same state as all other log objects
         self.__dict__ = Log.__shared_state
 
+        # set some initial state
         self.max_fname = max_fname
-
         self.sym_level = 'NOTSET'      # set in call to check_level()
         self.level = self.check_level(level)
 
-        # don't allow logfile to change after initially set
-        if not hasattr(self, 'logfile'):
-            if logfile is None:
-                logfile = '%s.log' % __name__
-            try:
-                if append:
-                    self.logfd = open(logfile, 'a')
-                else:
-                    self.logfd = open(logfile, 'w')
-            except IOError:
-                # assume we have readonly filesystem
-                basefile = os.path.basename(logfile)
-                if sys.platform == 'win32':
-                    logfile = os.path.join('C:\\', basefile)
-                else:
-                    logfile = os.path.join('~', basefile)
+        # if not given logfile nme, make one up
+        if logfile is None:
+            logfile = '%s.log' % __name__
 
-            # try to open logfile again
-            if append:
-                self.logfd = open(logfile, 'a')
+        # get correct options for rewrite or append of logfile
+        log_options = 'w'
+        if append:
+            log_options = 'a'
+
+        # test if we can use the file
+        try:
+            self.logfd = open(logfile, log_options)
+            self.logfd.close()
+        except IOError:
+            # assume we have readonly filesystem
+            basefile = os.path.basename(logfile)
+            if sys.platform == 'win32':
+                logfile = os.path.join('C:\\', basefile)
             else:
-                self.logfd = open(logfile, 'w')
+                logfile = os.path.join('~', basefile)
 
-            self.logfile = logfile
+        # try to open logfile again
+        self.logfd = open(logfile, log_options)
 
-            self.debug('='*55)
-            self.debug('Log started on %s, log level=%s'
-                       % (datetime.datetime.now().ctime(),
-                          self._level_num_to_name[level]))
-            self.debug('-'*55)
+        self.logfile = logfile
+
+        # announce time+date of opening logging and logging level
+        self.debug('='*55)
+        self.debug('Log started on %s, log level=%s'
+                   % (datetime.datetime.now().ctime(),
+                      self._level_num_to_name[level]))
+        self.debug('-'*55)
 
     def check_level(self, level):
         """Check the level value for legality.
@@ -150,7 +153,7 @@ class Log(object):
             level = self.level
 
         # are we going to log?
-        if level < self.level or self.level <= 0:
+        if level < self.level or self.level < 0:
             return
 
         if msg is None:
@@ -210,5 +213,8 @@ class Log(object):
         self(msg, self.DEBUG)
 
     def __del__(self):
+        """Close the logging."""
+
         self.logfd.close()
+        self.logfd = None
 
