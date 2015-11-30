@@ -1,18 +1,18 @@
-# log
+# logger
 A simple logging module that includes module+line where message was logged.
 
 Usage:
 
 ```python
-import log
+import logger
 
-log = log.Log('my_log.log', log.Log.DEBUG)
+log = logger.Log('my_log.log', logger.Log.DEBUG)
 log('A line in the log at the default level (DEBUG)')
 log('A log line at WARN level', Log.WARN)
 log.info('log line issued at INFO level')
 ```
 
-The **log('message')** and **log('message', Log.WARN)** forms are preferred.
+The **log('message')** and **log.warn('message')** forms are preferred.
 The simple **log('message')** logs at the default level set up when initializing
 the logging - DEBUG in the above example.
 
@@ -35,9 +35,9 @@ somewhat simplified version.
 
 A simple piece of code to exercise the module is:
 ```python
-import log
+import logger
 
-log = log.Log('xyzzy.log', log.Log.DEBUG)
+log = logger.Log('xyzzy.log', logger.Log.DEBUG)
 
 log('test')
 log.debug('DEBUG: test')
@@ -64,9 +64,9 @@ This code produces a log file containing:
 If we change the test code to be:
 
 ```python
-import log
+import logger
 
-log = log.Log('xyzzy.log', log.Log.WARN)    # default level is WARN
+log = logger.Log('xyzzy.log', logger.Log.WARN)    # default level is now WARN
 
 log('test')
 log.debug('DEBUG: test')
@@ -87,6 +87,6 @@ we get:
 
 Note that we no longer see logging at levels below WARN.  This includes the
 three header lines that are logged at the DEBUG level.  The log() call at line
-9 of the **test_log.py** file does log as a basic log() call logs at the logging
+11 of the **test_log.py** file does log since this call logs at the logging
 default level, so always logs.  We **don't** see logging at the DEBUG and INFO
 levels.

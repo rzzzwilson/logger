@@ -6,7 +6,7 @@ Test the simple logger.
 
 import os
 import unittest
-import log
+import logger
 
 
 class TestLogh(unittest.TestCase):
@@ -14,12 +14,12 @@ class TestLogh(unittest.TestCase):
     def testSimple(self):
         """A simple 'smoke test' for the logging module."""
 
-        import log
+        import logger
 
         logfilename = 'xyzzy.log'
 
         # start logging, write some test logs, close log
-        log = log.Log(logfilename, log.Log.DEBUG)
+        log = logger.Log(logfilename, logger.Log.DEBUG)
         log('test')
         log.debug('DEBUG: test')
         log.info('INFO: test')
@@ -56,12 +56,12 @@ class TestLogh(unittest.TestCase):
     def testLevel(self):
         """A test setting the debug level up."""
 
-        import log
+        import logger
 
         logfilename = 'xyzzy2.log'
 
         # start logging at WARN, write some test logs, close log
-        log = log.Log(logfilename, log.Log.WARN)
+        log = logger.Log(logfilename, logger.Log.WARN)
         log('test')
         log.debug('DEBUG: test')
         log.info('INFO: test')
@@ -95,12 +95,12 @@ class TestLogh(unittest.TestCase):
     def testNolevel(self):
         """A test where the level is not specified."""
 
-        import log
+        import logger
 
         logfilename = 'xyzzy3.log'
 
         # start logging, write some test logs, close log
-        log = log.Log(logfilename)
+        log = logger.Log(logfilename)
         log('test')
         log.debug('DEBUG: test')
         log.info('INFO: test')
