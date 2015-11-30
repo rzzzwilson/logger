@@ -50,15 +50,15 @@ log.critical('CRITICAL: test')
 This code produces a log file containing:
 
 ```
-13:51:31.780860|   DEBUG|       test_log:9   |=======================================================
-13:51:31.782535|   DEBUG|       test_log:9   |Log started on Sun Nov 29 13:51:31 2015, log level=DEBUG
-13:51:31.782656|   DEBUG|       test_log:9   |-------------------------------------------------------
-13:51:31.782762|   DEBUG|       test_log:11  |test
-13:51:31.782842|   DEBUG|       test_log:12  |DEBUG: test
-13:51:31.782928|    INFO|       test_log:13  |INFO: test
-13:51:31.783009|    WARN|       test_log:14  |WARN: test
-13:51:31.783087|   ERROR|       test_log:15  |ERROR: test
-13:51:31.783166|CRITICAL|       test_log:16  |CRITICAL: test
+13:51:31.780860|   DEBUG|    test_logger:9   |=======================================================
+13:51:31.782535|   DEBUG|    test_logger:9   |Log started on Sun Nov 29 13:51:31 2015, log level=DEBUG
+13:51:31.782656|   DEBUG|    test_logger:9   |-------------------------------------------------------
+13:51:31.782762|   DEBUG|    test_logger:11  |test
+13:51:31.782842|   DEBUG|    test_logger:12  |DEBUG: test
+13:51:31.782928|    INFO|    test_logger:13  |INFO: test
+13:51:31.783009|    WARN|    test_logger:14  |WARN: test
+13:51:31.783087|   ERROR|    test_logger:15  |ERROR: test
+13:51:31.783166|CRITICAL|    test_logger:16  |CRITICAL: test
 ```
 
 If we change the test code to be:
@@ -79,14 +79,14 @@ log.critical('CRITICAL: test')
 we get:
 
 ```
-13:54:58.502121|    WARN|       test_log:11  |test
-13:54:58.502397|    WARN|       test_log:14  |WARN: test
-13:54:58.502489|   ERROR|       test_log:15  |ERROR: test
-13:54:58.502569|CRITICAL|       test_log:16  |CRITICAL: test
+13:54:58.502121|    WARN|    test_logger:11  |test
+13:54:58.502397|    WARN|    test_logger:14  |WARN: test
+13:54:58.502489|   ERROR|    test_logger:15  |ERROR: test
+13:54:58.502569|CRITICAL|    test_logger:16  |CRITICAL: test
 ```
 
 Note that we no longer see logging at levels below WARN.  This includes the
 three header lines that are logged at the DEBUG level.  The log() call at line
-11 of the **test_log.py** file does log since this call logs at the logging
+11 of the **test_logger.py** file does log since this call logs at the logging
 default level, so always logs.  We **don't** see logging at the DEBUG and INFO
 levels.
