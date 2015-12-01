@@ -33,7 +33,8 @@ Log levels styled on the Python 'logging' module.
 
 A very early version of this was written for the ANUGA project
 [https://github.com/GeoscienceAustralia/anuga_core].  The version here is a
-somewhat simplified version.
+somewhat simplified version.  The ANUGA version also had console and logfile
+output streams with a separate log level for each stream.
 
 Example
 -------
@@ -72,9 +73,9 @@ If we change the test code to be:
 
     import logger
     
-    log = logger.Log('xyzzy.log', logger.Log.WARN)    # default level is now WARN
+    log = logger.Log('xyzzy.log', logger.Log.WARN)  # default level is now WARN
     
-    log('test')
+    log('test')                                     # all this unchanged
     log.debug('DEBUG: test')
     log.info('INFO: test')
     log.warn('WARN: test')
