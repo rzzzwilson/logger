@@ -52,6 +52,7 @@ A simple piece of code to exercise the module is:
     log.info('INFO: test')
     log.warn('WARN: test')
     log.error('ERROR: test')
+    log.critical('CRITICAL: test')
 
 This code produces a log file containing:
 
