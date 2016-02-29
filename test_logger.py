@@ -9,7 +9,7 @@ import unittest
 import logger
 
 
-class TestLogh(unittest.TestCase):
+class TestLog(unittest.TestCase):
 
     def testSimple(self):
         """A simple 'smoke test' for the logging module."""
