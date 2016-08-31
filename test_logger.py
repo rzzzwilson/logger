@@ -23,7 +23,7 @@ class TestLog(unittest.TestCase):
         log('test')
         log.debug('DEBUG: test')
         log.info('INFO: test')
-        log.warn('WARN: test')
+        log('WARN: test', logger.Log.WARN)
         log.error('ERROR: test')
         log.critical('CRITICAL: test')
         del log

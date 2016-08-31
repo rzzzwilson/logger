@@ -5,10 +5,10 @@ A simple logger.
 
 Simple usage:
     import logger
-    log = logger.Log('my_log.log', log.Log.DEBUG)
-    log('A line in the log at the default level (DEBUG)')
-    log('A log line at WARN level', Log.WARN)
-    log.info('log line issued at INFO level')
+    log = logger.Log('my_log.log', logger.Log.DEBUG)
+    log('A line in the log at the default level (DEBUG)')   # simple
+    log('A log line at WARN level', logger.Log.WARN)        # hard to use
+    log.info('log line issued at INFO level')               # best if using level
 
 Based on the 'borg' recipe from [http://code.activestate.com/recipes/66531/].
 

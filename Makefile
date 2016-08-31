@@ -4,3 +4,6 @@
 
 clean:
 	rm -f *.pyc *.log
+
+test:
+	python test_logger.py
