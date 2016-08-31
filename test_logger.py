@@ -39,7 +39,9 @@ class TestLog(unittest.TestCase):
             end_field = l.split('|')[-1]
             last_field.append(end_field)
 
-        expected = ['test\n',
+        expected = [
+                    'Logging level set to 10 (DEBUG)\n',
+                    'test\n',
                     'DEBUG: test\n',
                     'INFO: test\n',
                     'WARN: test\n',
@@ -80,7 +82,9 @@ class TestLog(unittest.TestCase):
             end_field = l.split('|')[-1]
             last_field.append(end_field)
 
-        expected = ['test\n',
+        expected = [
+                    'Logging level set to 30 (WARN)\n',
+                    'test\n',
                     'WARN: test\n',
                     'ERROR: test\n',
                     'CRITICAL: test\n',
@@ -120,7 +124,9 @@ class TestLog(unittest.TestCase):
             end_field = l.split('|')[-1]
             last_field.append(end_field)
 
-        expected = ['test\n',
+        expected = [
+                    'Logging level set to 00 (NOTSET)\n',
+                    'test\n',
                     'DEBUG: test\n',
                     'INFO: test\n',
                     'WARN: test\n',

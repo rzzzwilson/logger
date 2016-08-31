@@ -4,8 +4,8 @@
 A simple logger.
 
 Simple usage:
-    import log
-    log = log.Log('my_log.log', log.Log.DEBUG)
+    import logger
+    log = logger.Log('my_log.log', log.Log.DEBUG)
     log('A line in the log at the default level (DEBUG)')
     log('A log line at WARN level', Log.WARN)
     log.info('log line issued at INFO level')
@@ -39,7 +39,12 @@ class Log(object):
     DEBUG = 10
     NOTSET = 0
 
-    _level_num_to_name = {NOTSET: 'NOTSET',
+    MAXLEVEL = CRITICAL
+    MINLEVEL = NOTSET
+
+    # dict to convert logging level back to symbolic name
+    _level_num_to_name = {
+                          NOTSET: 'NOTSET',
                           DEBUG: 'DEBUG',
                           INFO: 'INFO',
                           WARN: 'WARN',
@@ -68,7 +73,7 @@ class Log(object):
         self.sym_level = 'NOTSET'      # set in call to check_level()
         self.level = self.check_level(level)
 
-        # if not given logfile nme, make one up
+        # if not given logfile name, make one up
         if logfile is None:
             logfile = '%s.log' % __name__
 
@@ -101,6 +106,9 @@ class Log(object):
                       self._level_num_to_name[level]))
         self.debug('-'*55)
 
+        # finally, set some internal state
+        self.set_level(self.level)
+
     def check_level(self, level):
         """Check the level value for legality.
 
@@ -116,7 +124,7 @@ class Log(object):
             print(msg)
             raise Exception(msg)
 
-        if not 0 <= level <= 50:
+        if not self.NOTSET <= level <= self.CRITICAL:
             msg = "Logging level invalid: '%s'" % str(level)
             print(msg)
             raise Exception(msg)
