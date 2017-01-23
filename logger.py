@@ -52,6 +52,10 @@ class Log(object):
                           CRITICAL: 'CRITICAL',
                          }
 
+    # dict to convert symbolic name to logging level
+    # just invert _level_num_to_name
+    _name_to_level_num = {value:key for (key, value) in _level_num_to_name.items()}
+
     # default maximum length of filename (enforced)
     DefaultMaxFname = 15
 
