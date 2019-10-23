@@ -33,9 +33,8 @@ class TestLog(unittest.TestCase):
             lines = fd.readlines()
 
         # drop first three lines and get last field of remaining lines
-        lines = lines[3:]
         last_field = []
-        for l in lines:
+        for l in lines[3:]:
             end_field = l.split('|')[-1]
             last_field.append(end_field)
 
@@ -76,19 +75,21 @@ class TestLog(unittest.TestCase):
         with open(logfilename, 'rb') as fd:
             lines = fd.readlines()
 
-        # get last field of each line
+        # get last field of each line (ignore first 3 lines)
         last_field = []
-        for l in lines:
+        for l in lines[3:]:
             end_field = l.split('|')[-1]
             last_field.append(end_field)
 
+        # build the expected output
         expected = [
                     'Logging level set to 30 (WARN)\n',
                     'test\n',
                     'WARN: test\n',
                     'ERROR: test\n',
-                    'CRITICAL: test\n',
+                    'CRITICAL: test\n'
                    ]
+
         msg = ('Got error comparing last fields, expected:\n%s\ngot:\n%s'
                % (''.join(expected), ''.join(last_field)))
 
@@ -118,9 +119,8 @@ class TestLog(unittest.TestCase):
             lines = fd.readlines()
 
         # drop first three lines and get last field of remaining lines
-        lines = lines[3:]
         last_field = []
-        for l in lines:
+        for l in lines[3:]:
             end_field = l.split('|')[-1]
             last_field.append(end_field)
 

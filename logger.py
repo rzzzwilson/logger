@@ -104,11 +104,11 @@ class Log(object):
         self.logfile = logfile
 
         # announce time+date of opening logging and logging level
-        self.debug('='*55)
-        self.debug('Log started on %s, log level=%s'
-                   % (datetime.datetime.now().ctime(),
-                      self._level_num_to_name[level]))
-        self.debug('-'*55)
+        self.critical('='*60)
+        self.critical('Log started on %s, log level=%s'
+                      % (datetime.datetime.now().ctime(),
+                         self._level_num_to_name[level]))
+        self.critical('-'*60)
 
         # finally, set some internal state
         self.set_level(self.level)
@@ -195,10 +195,19 @@ class Log(object):
         # get string for log level
         loglevel = self._level_num_to_name[level]
 
+        # check message for newline characters
+        msg_list = msg.split('\n')
+
+        # write message list to log file
+        # only the first line has the time/level/module information
         fname = fname[:self.max_fname]
-        self.logfd.write('%02d:%02d:%02d.%06d|%8s|%*s:%-4d|%s\n'
-                         % (hr, min, sec, msec, loglevel, self.max_fname,
-                            fname, lnum, msg))
+        prefix = ('%02d:%02d:%02d.%06d|%8s|%*s:%-4d'
+                  % (hr, min, sec, msec, loglevel, self.max_fname, fname, lnum))
+        spacer = ' ' * len(prefix)
+
+        for line in msg_list:
+            self.logfd.write('%s|%s\n' % (prefix, line))
+            prefix = spacer
         self.logfd.flush()
 
     def critical(self, msg):
