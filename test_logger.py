@@ -140,5 +140,42 @@ class TestLog(unittest.TestCase):
 
         os.remove(logfilename)
 
+    def testMultiLine(self):
+        """A test where a multi-line log is made."""
+
+        import logger
+
+        logfilename = 'xyzzy4.log'
+
+        # start logging, write some test logs, close log
+        log = logger.Log(logfilename)
+        log('test')
+        log('first line\nsecond line\nthird line')
+        del log
+
+        # check contents of the logfile
+        with open(logfilename, 'rb') as fd:
+            lines = fd.readlines()
+
+        # drop first three lines and get last field of remaining lines
+        last_field = []
+        for l in lines[3:]:
+            end_field = l.split('|')[-1]
+            last_field.append(end_field)
+
+        expected = [
+                    'Logging level set to 00 (NOTSET)\n',
+                    'test\n',
+                    'first line\n',
+                    'second line\n',
+                    'third line\n'
+                   ]
+        msg = ('Got error comparing last fields, expected:\n%s\ngot:\n%s'
+               % (''.join(expected), ''.join(last_field)))
+
+        self.assertEqual(expected, last_field, msg)
+
+        os.remove(logfilename)
+
 
 unittest.main()
