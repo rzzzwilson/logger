@@ -29,7 +29,7 @@ class TestLog(unittest.TestCase):
         del log
 
         # check contents of the logfile
-        with open(logfilename, 'rb') as fd:
+        with open(logfilename, 'r') as fd:
             lines = fd.readlines()
 
         # drop first three lines and get last field of remaining lines
@@ -72,7 +72,7 @@ class TestLog(unittest.TestCase):
         del log
 
         # check contents of the logfile
-        with open(logfilename, 'rb') as fd:
+        with open(logfilename, 'r') as fd:
             lines = fd.readlines()
 
         # get last field of each line (ignore first 3 lines)
@@ -115,7 +115,7 @@ class TestLog(unittest.TestCase):
         del log
 
         # check contents of the logfile
-        with open(logfilename, 'rb') as fd:
+        with open(logfilename, 'r') as fd:
             lines = fd.readlines()
 
         # drop first three lines and get last field of remaining lines
@@ -154,7 +154,7 @@ class TestLog(unittest.TestCase):
         del log
 
         # check contents of the logfile
-        with open(logfilename, 'rb') as fd:
+        with open(logfilename, 'r') as fd:
             lines = fd.readlines()
 
         # drop first three lines and get last field of remaining lines
