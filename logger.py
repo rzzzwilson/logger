@@ -19,8 +19,8 @@ Log output includes the module and line # of the log() call.
 
 import os
 import sys
+import inspect
 import datetime
-import traceback
 
 
 ################################################################################
@@ -178,19 +178,12 @@ class Log(object):
         sec = to.second
         msec = to.microsecond
 
-        # caller information - look back for first module != <this module name>
-        frames = traceback.extract_stack()
-        frames.reverse()
-        try:
-            (_, mod_name) = __name__.rsplit('.', 1)
-        except ValueError:
-            mod_name = __name__
-        for (fpath, lnum, mname, _) in frames:
-            fname = os.path.basename(fpath).rsplit('.', 1)
-            if len(fname) > 1:
-                fname = fname[0]
-            if fname != mod_name:
-                break
+        # get caller information - module, function name and line number
+        callerframerecord = inspect.stack()[1]
+        frame = callerframerecord[0]
+        info = inspect.getframeinfo(frame)
+        fname = os.path.basename(info.filename)
+        lnum = info.lineno
 
         # get string for log level
         loglevel = self._level_num_to_name[level]
